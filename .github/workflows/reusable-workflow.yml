@@ -18,3 +18,9 @@ jobs:
         run: |
           echo "Processing JSON file at ${{ github.event.inputs.json-file-path }}"
           # Add your logic here to process the JSON file
+          echo "Processing JSON file at $json_file_path"
+
+          # Parse and print values from the JSON file
+          json_value=$(cat $json_file_path)
+          echo "Contents of the JSON file:"
+          echo "$json_value"
