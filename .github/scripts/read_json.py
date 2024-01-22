@@ -1,15 +1,16 @@
 # File: .github/scripts/read_json.py
 import sys
 import json
-import subprocess
+import requests
 
 def read_json_values(json_url):
     try:
-        # Use curl to download the JSON content from the URL
-        json_content = subprocess.check_output(['curl', '-s', json_url])
-        
+        # Use requests to get the JSON content from the URL
+        response = requests.get(json_url)
+        response.raise_for_status()  # Raise an error for bad responses (e.g., 404)
+
         # Parse the JSON content
-        data = json.loads(json_content)
+        data = response.json()
         return data
     except Exception as e:
         print(f"Error reading JSON content from URL: {e}")
