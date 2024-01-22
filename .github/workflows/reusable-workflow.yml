@@ -23,9 +23,9 @@ jobs:
           echo "Processing JSON file at $json_file_path"
 
           # Parse and print specific values from the JSON file
-          pkp_id=$(jq -r '.pkp-id' $json_file_path)
-          title=$(jq -r '.title' $json_file_path)
-          description=$(jq -r '.description' $json_file_path)
+          pkp_id=$(jq -r 'pkp-id' $json_file_path)
+          title=$(jq -r 'title' $json_file_path)
+          description=$(jq -r 'description' $json_file_path)
           id_list=$(jq -r '.scope.documents.id-list-filter | join(", ")' $json_file_path)
 
           echo "pkp-id: $pkp_id"
