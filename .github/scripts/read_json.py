@@ -1,24 +1,28 @@
 # File: .github/scripts/read_json.py
 import sys
 import json
+import subprocess
 
-def read_json_values(json_file_path):
+def read_json_values(json_url):
     try:
-        with open(json_file_path, 'r') as file:
-            data = json.load(file)
-            return data
+        # Use curl to download the JSON content from the URL
+        json_content = subprocess.check_output(['curl', '-s', json_url])
+        
+        # Parse the JSON content
+        data = json.loads(json_content)
+        return data
     except Exception as e:
-        print(f"Error reading JSON file: {e}")
+        print(f"Error reading JSON content from URL: {e}")
         return None
 
 def main():
-    json_file_path = sys.argv[1] if len(sys.argv) > 1 else None
+    json_url = sys.argv[1] if len(sys.argv) > 1 else None
 
-    if not json_file_path:
-        print("Please provide the path to the JSON file as a command-line argument.")
+    if not json_url:
+        print("Please provide the URL to the JSON file as a command-line argument.")
         sys.exit(1)
 
-    json_values = read_json_values(json_file_path)
+    json_values = read_json_values(json_url)
 
     if json_values:
         print("JSON values:")
